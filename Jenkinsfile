@@ -4,7 +4,7 @@ pipeline
     agent any
     stages
     {
-        stage('ContinuousDownload_Master')
+        stage('ContinuousDownload_Loans')
         {
             steps
             {
@@ -14,7 +14,7 @@ pipeline
                 }
             }
         }
-        stage('ContinuousBuild_Master')
+        stage('ContinuousBuild_Loans')
         {
             steps
             {
@@ -24,39 +24,5 @@ pipeline
                 }
             }
         }
-        stage('ContinuousDeployment_Master')
-        {
-            steps
-            {
-                script
-                {
-                    cicd.newDeploy("SharedLibrarywithDeclarativePipeline","172.31.2.90","testapp")
-                }
-            }
-        }
-        stage('ContinuousTesting_Master')
-        {
-            steps
-            {
-                script
-                {
-                    cicd.newGit("https://github.com/intelliqittrainings/FunctionalTesting.git")
-                    cicd.runSelenium("SharedLibrarywithDeclarativePipeline")
-                }
-            }
-        }
-        stage('ContinuousDelivery_Master')
-        {
-            steps
-            {
-                script
-                {
-                    cicd.newDeploy("SharedLibrarywithDeclarativePipeline","172.31.0.146","prodapp")
-                }
-            }
-        }
-        
-        
-        
     }
 }
